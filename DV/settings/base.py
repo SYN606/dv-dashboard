@@ -1,17 +1,24 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = "CHANGE_ME"
+load_dotenv(BASE_DIR / ".env")
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    "django.contrib.admin", "django.contrib.auth",
-    "django.contrib.contenttypes", "django.contrib.sessions",
-    "django.contrib.messages", "django.contrib.staticfiles"
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
@@ -21,7 +28,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware"
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "DV.urls"
@@ -34,7 +41,7 @@ TEMPLATES = [{
         "context_processors": [
             "django.template.context_processors.request",
             "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages"
+            "django.contrib.messages.context_processors.messages",
         ]
     }
 }]
@@ -57,7 +64,7 @@ AUTH_PASSWORD_VALIDATORS = [{
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = os.getenv("TIME_ZONE", "UTC")
 
 USE_I18N = True
 USE_TZ = True

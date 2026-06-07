@@ -1,10 +1,11 @@
 from .base import *
+import os
 
-SECRET_KEY = "django-insecure-m-y_v14^)085=e=(v$)fl1ep$15q=!y3iy_0hh%69kqp@sgh+!"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    host.strip() for host in os.getenv("ALLOWED_HOSTS", "*").split(",")
+]
 
 DATABASES = {
     "default": {

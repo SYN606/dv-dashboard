@@ -1,14 +1,11 @@
-import os
-
 from .base import *
-
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+import os
 
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "dashboard.example.com",
-    "localhost",
+    host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(",")
+    if host.strip()
 ]
 
 DATABASES = {
