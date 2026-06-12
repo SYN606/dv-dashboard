@@ -1,0 +1,85 @@
+{% extends "base.html" %} 
+
+{% block title %}Terms and Conditions | DV Dashboard{% endblock %} 
+
+{% block body %}
+
+<section class="max-w-4xl mx-auto py-12">
+  <div class="glass-strong p-10 rounded-3xl border border-white/10">
+    <h1
+      class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"
+    >
+      Terms and Conditions
+    </h1>
+    <p class="text-slate-400 mb-8">Last updated: June 8, 2026</p>
+
+    <div class="space-y-8 text-slate-300 leading-relaxed">
+      <div>
+        <h2 class="text-xl font-semibold text-white mb-3">
+          1. Acceptance of Terms
+        </h2>
+        <p>
+          By accessing or using the DV Dashboard, you agree to be bound by these
+          Terms and Conditions. If you do not agree with any part of these
+          terms, you may not use our services.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold text-white mb-3">
+          2. Discord Bot Usage
+        </h2>
+        <p>
+          The DV Dashboard is provided as a tool to manage your Discord servers.
+          You are responsible for ensuring that your use of the bot complies
+          with
+          <a
+            href="https://discord.com/terms"
+            class="text-cyan-400 hover:underline"
+            >Discord's Terms of Service</a
+          >
+          and Community Guidelines.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold text-white mb-3">
+          3. User Data & Privacy
+        </h2>
+        <p>
+          We only collect the data necessary to provide dashboard functionality
+          (e.g., Discord ID, username, guild information). We do not sell your
+          data to third parties.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold text-white mb-3">
+          4. Limitation of Liability
+        </h2>
+        <p>
+          The service is provided "as is." We are not liable for any damages,
+          data loss, or server issues resulting from the use or inability to use
+          our bot or dashboard.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold text-white mb-3">5. Termination</h2>
+        <p>
+          We reserve the right to suspend or terminate access to the dashboard
+          for any user who violates these terms or engages in malicious
+          activity.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10">
+      <p class="text-sm text-slate-500">
+        If you have any questions regarding these terms, please contact us via
+        our official support server.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

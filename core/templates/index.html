@@ -1,0 +1,163 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<div class="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-slate-100">
+
+  <section class="backdrop-blur-md bg-white/[0.03] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl">
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      
+      <div class="space-y-2 max-w-2xl">
+        <span class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-white/10">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+          Control System
+        </span>
+        
+        {% if user %}
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            Welcome back, {{ user.global_name|default:user.username|default:"User" }}
+          </h1>
+        {% else %}
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            Server Dashboard
+          </h1>
+        {% endif %}
+        
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Monitor connection latencies and select active deployments to adjust your automated bot settings.
+        </p>
+      </div>
+
+      <div class="bg-white/[0.02] border border-white/5 p-4 rounded-xl flex items-center gap-4 w-full lg:w-auto min-w-[260px]">
+        {% if user %}
+          {% if user.id and user.avatar %}
+            <img src="https://cdn.discordapp.com/avatars/{{ user.id }}/{{ user.avatar }}.png" alt="Profile" class="w-12 h-12 rounded-lg border border-white/10 object-cover" />
+          {% else %}
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400">
+              <i class="ri-user-line text-xl"></i>
+            </div>
+          {% endif %}
+          <div class="truncate">
+            <p class="text-sm font-semibold text-slate-200 truncate">{{ user.global_name|default:user.username }}</p>
+            <p class="text-xs text-emerald-400 font-medium flex items-center gap-1 mt-0.5">
+              Logged In
+            </p>
+          </div>
+        {% else %}
+          <div class="w-12 h-12 rounded-lg bg-white/[0.04] border border-white/5 flex items-center justify-center text-slate-400">
+            <i class="ri-user-shared-line text-lg"></i>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-400">Guest Mode</p>
+            <a href="{% url 'core:discord_login' %}" class="text-xs text-cyan-400 font-semibold hover:underline flex items-center gap-1 mt-0.5">
+              Connect account
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+
+  {% if user %}
+    {% if stats.bot_online %}
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-white/[0.02] border border-white/5 p-4 rounded-xl">
+          <p class="text-slate-400 text-xs font-medium">Latency</p>
+          <p class="text-xl font-bold text-slate-100 mt-0.5">{{ stats.ping_ms }}<span class="text-xs font-normal text-slate-400 ml-0.5">ms</span></p>
+        </div>
+
+        <div class="bg-white/[0.02] border border-white/5 p-4 rounded-xl">
+          <p class="text-slate-400 text-xs font-medium">Active Connected Servers</p>
+          <p class="text-xl font-bold text-white mt-0.5">{{ stats.shared_guilds }}</p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-200 tracking-tight">Your Managed Servers</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Displays all servers where you hold Administrator permissions.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {% for server in servers %}
+            <div class="bg-white/[0.02] border border-white/5 p-4 rounded-xl flex items-center justify-between transition-all hover:bg-white/[0.05]">
+              <div class="flex items-center gap-3 max-w-[65%]">
+                {% if server.icon %}
+                  <img src="{{ server.icon }}" alt="{{ server.name }}" class="w-10 h-10 rounded-lg object-cover shrink-0" />
+                {% else %}
+                  <div class="w-10 h-10 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-xs font-bold text-slate-300 shrink-0">
+                    {{ server.name|slice:":2"|upper }}
+                  </div>
+                {% endif %}
+                <div class="truncate">
+                  <h3 class="text-sm font-semibold text-slate-200 truncate">{{ server.name }}</h3>
+                  <p class="text-[10px] text-slate-500 font-mono select-all mt-0.5">ID: {{ server.id }}</p>
+                </div>
+              </div>
+
+              <div>
+                {% if server.has_bot %}
+                  <a href="{% url 'core:guild_dashboard' server.id %}" class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 bg-white/10 hover:bg-white/15 text-white rounded-lg transition-colors border border-white/5">
+                    <i class="ri-settings-4-line text-xs"></i> Configure
+                  </a>
+                {% else %}
+                  <span class="inline-flex items-center text-[11px] font-medium px-2.5 py-1 bg-amber-500/10 text-amber-400 rounded-md border border-amber-500/10 select-none">
+                    Setup Required
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          {% empty %}
+            <div class="col-span-full py-10 px-4 text-center border border-white/5 bg-white/[0.01] rounded-xl">
+              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 mx-auto mb-3">
+                <i class="ri-folder-open-line text-lg"></i>
+              </div>
+              <p class="text-sm text-slate-300 font-semibold">No servers found</p>
+              <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                Your logged-in Discord profile does not appear to manage any servers with administrator permissions.
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% else %}
+      <section class="p-8 rounded-xl border border-rose-500/10 bg-rose-500/[0.02] text-center max-w-2xl mx-auto my-4">
+        <div class="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400 text-xl mx-auto mb-4">
+          <i class="ri-error-warning-line"></i>
+        </div>
+        <h2 class="text-lg font-bold text-slate-200">Connection Interrupted</h2>
+        <p class="text-slate-400 mt-2 text-sm max-w-md mx-auto">
+          The panel could not reach the backend bot processes. Settings customization features are currently unavailable.
+        </p>
+        <div class="mt-4">
+          <button onclick="window.location.reload();" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
+            <i class="ri-refresh-line"></i> Refresh page
+          </button>
+        </div>
+      </section>
+    {% endif %}
+
+  {% else %}
+    <section class="p-8 rounded-xl border border-white/10 text-center max-w-xl mx-auto bg-white/[0.01] my-4">
+      <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-sm text-slate-200 border border-white/10 mx-auto">
+        DV
+      </div>
+      <h2 class="text-xl font-bold mt-4 text-slate-100">Manage Your Servers</h2>
+      <p class="text-slate-400 mt-2 text-sm max-w-sm mx-auto">
+        Sign in with your Discord account to view your server environments and configure dashboard features.
+      </p>
+      
+      <div class="mt-6">
+        <a href="{% url 'core:discord_login' %}" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-slate-900 bg-white hover:bg-slate-100 rounded-lg shadow-md transition-colors">
+          <i class="ri-discord-fill text-base"></i>
+          <span>Sign In with Discord</span>
+        </a>
+      </div>
+    </section>
+  {% endif %}
+
+</div>
+{% endblock %}
