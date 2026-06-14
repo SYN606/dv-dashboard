@@ -14,7 +14,7 @@
       </a>
 
       <div class="hidden lg:flex items-center gap-8 font-bold text-sm">
-        {% if user %}
+        {% if user and user.id %}
           <a href="{% url 'core:homepage' %}" class="text-white flex items-center gap-2">
             <i class="ri-dashboard-line text-cyan-400"></i> Dashboard
           </a>
@@ -30,7 +30,7 @@
       </div>
 
       <div class="flex items-center gap-3">
-        {% if user %}
+        {% if user and user.id %}
           <div class="relative">
             <button @click="profileOpen = !profileOpen" class="flex items-center gap-3 focus:outline-none group">
               <span class="hidden md:inline font-black text-slate-200 group-hover:text-white transition-colors text-sm">
@@ -40,8 +40,8 @@
               {% if user.avatar %}
                 <img src="https://cdn.discordapp.com/avatars/{{ user.id }}/{{ user.avatar }}.png" alt="Profile" class="w-8 h-8 rounded-xl border border-white/10 object-cover shadow-sm" />
               {% else %}
-                <div class="w-8 h-8 rounded-xl bg-slate-800 border border-white/10 flex items-center justify-center text-xs font-black text-slate-300">
-                  {{ user.username|slice:":2"|upper }}
+                <div class="w-8 h-8 rounded-xl bg-slate-800 border border-white/10 flex items-center justify-center text-xs font-black text-slate-300 uppercase">
+                  {{ user.username|slice:":2" }}
                 </div>
               {% endif %}
               <i class="ri-arrow-down-s-line text-slate-400 text-base transition-transform" :class="{'rotate-180 text-slate-200': profileOpen}"></i>
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    {% if user %}
+    {% if user and user.id %}
       <div 
         x-show="mobileOpen" 
         x-cloak 

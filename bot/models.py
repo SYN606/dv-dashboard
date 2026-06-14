@@ -1,21 +1,13 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 
 
-# Core Enum Choices Definitions
 class RestrictionScope(models.TextChoices):
     ALLOW = "allow", "Allow"
     DENY = "deny", "Deny"
     BOTH = "both", "Both"
 
 
-# Base Structural & Shared Mixins
 class TimestampMixin(models.Model):
-    """
-    Abstract Mixin to inject auto-managed database
-    timestamps across operational configurations.
-    """
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -23,14 +15,7 @@ class TimestampMixin(models.Model):
         abstract = True
 
 
-# Shared Dashboard Link Models
 class GuildConfig(TimestampMixin):
-    """
-    Core Configuration anchor. The background bot writes to this table
-    upon entering a server. The Dashboard views check against this table
-    to see if the bot is present.
-    """
-
     guild_id = models.CharField(max_length=30, primary_key=True)
     guild_name = models.CharField(max_length=100)
     prefix = models.CharField(max_length=5, default="!")
@@ -43,27 +28,20 @@ class GuildConfig(TimestampMixin):
         return f"{self.guild_name} ({self.guild_id})"
 
 
-# Feature System Modules Configurations
 class AFK(models.Model):
-    """
-    Tracks active global or server-specific AFK status blocks for users.
-    """
-
-    guild_id = models.CharField(max_length=30, validators=[MinValueValidator(1)])
-    user_id = models.CharField(max_length=30, validators=[MinValueValidator(1)])
+    guild_id = models.CharField(max_length=30)
+    user_id = models.CharField(max_length=30)
     afk_reason = models.CharField(max_length=256)
-    since = models.IntegerField()  # Epoch timestamp representation
+    since = models.IntegerField()
 
     class Meta:
         db_table = "afk"
         constraints = [
-            models.UniqueConstraint(fields=["guild_id", "user_id"], name="pk_afk"),
-            models.CheckConstraint(
-                condition=models.Q(guild_id__gt="0"), name="chk_afk_guild_id"
-            ),
-            models.CheckConstraint(
-                condition=models.Q(user_id__gt="0"), name="chk_afk_user_id"
-            ),
+            models.UniqueConstraint(fields=["guild_id", "user_id"], name="pk_afk")
+        ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
+            models.Index(fields=["user_id"]),
         ]
 
     def __str__(self) -> str:
@@ -71,10 +49,6 @@ class AFK(models.Model):
 
 
 class AdminRole(models.Model):
-    """
-    Explicit bot configuration permissions bypass maps.
-    """
-
     guild_id = models.CharField(max_length=30)
     role_id = models.CharField(max_length=30)
 
@@ -83,10 +57,10 @@ class AdminRole(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["guild_id", "role_id"], name="pk_admin_roles"
-            ),
-            models.CheckConstraint(
-                condition=models.Q(guild_id__gt="0"), name="chk_admin_role_guild"
-            ),
+            )
+        ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
         ]
 
     def __str__(self) -> str:
@@ -94,10 +68,6 @@ class AdminRole(models.Model):
 
 
 class MediaOnlyChannel(TimestampMixin):
-    """
-    Enforces media attachments restrictions inside designated text nodes.
-    """
-
     guild_id = models.CharField(max_length=30)
     channel_id = models.CharField(max_length=30)
     sticky_message_id = models.CharField(max_length=30, null=True, blank=True)
@@ -111,18 +81,14 @@ class MediaOnlyChannel(TimestampMixin):
         constraints = [
             models.UniqueConstraint(
                 fields=["guild_id", "channel_id"], name="pk_media_only_channels"
-            ),
-            models.CheckConstraint(
-                condition=models.Q(guild_id__gt="0"), name="chk_media_guild_id"
-            ),
+            )
+        ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
         ]
 
 
 class StickyMessage(TimestampMixin):
-    """
-    Configures structural automatic pinning overlays for critical alert contexts.
-    """
-
     guild_id = models.CharField(max_length=30)
     channel_id = models.CharField(max_length=30)
     sticky_content = models.TextField()
@@ -139,14 +105,12 @@ class StickyMessage(TimestampMixin):
                 condition=models.Q(counter__gte=0), name="chk_sticky_counter"
             ),
         ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
+        ]
 
 
-# Command & Flow Restrictions Matrix
 class DisabledCommand(models.Model):
-    """
-    Hard global overrides disabling execution flags on specific commands.
-    """
-
     guild_id = models.CharField(max_length=30)
     command_name = models.CharField(max_length=64)
 
@@ -157,13 +121,12 @@ class DisabledCommand(models.Model):
                 fields=["guild_id", "command_name"], name="pk_disabled_commands"
             )
         ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
+        ]
 
 
 class RestrictedCommand(models.Model):
-    """
-    Granular blacklists/whitelists routing commands into precise channels.
-    """
-
     guild_id = models.CharField(max_length=30)
     channel_id = models.CharField(max_length=30)
     command_name = models.CharField(max_length=64)
@@ -179,14 +142,12 @@ class RestrictedCommand(models.Model):
                 name="pk_restricted_commands",
             )
         ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
+        ]
 
 
-# Moderation & Escalation Enforcements
 class TempbanConfig(models.Model):
-    """
-    Mute/Ban role configurations mapping across individual shards.
-    """
-
     guild_id = models.CharField(max_length=30, primary_key=True)
     role_id = models.CharField(max_length=30)
 
@@ -198,10 +159,6 @@ class TempbanConfig(models.Model):
 
 
 class TempbanRecord(TimestampMixin):
-    """
-    Active system execution queues for timed moderation items.
-    """
-
     guild_id = models.CharField(max_length=30)
     user_id = models.CharField(max_length=30)
     moderator_id = models.CharField(max_length=30)
@@ -228,10 +185,6 @@ class TempbanRecord(TimestampMixin):
 
 
 class ModerationLogConfig(TimestampMixin):
-    """
-    Core Dispatch paths logging moderation telemetry pipelines.
-    """
-
     guild_id = models.CharField(max_length=30, primary_key=True)
     channel_id = models.CharField(max_length=30)
     enabled = models.BooleanField(default=True)
@@ -244,10 +197,6 @@ class ModerationLogConfig(TimestampMixin):
 
 
 class ChannelPermissionSnapshot(TimestampMixin):
-    """
-    State backups tracking dynamic channel locks/unlock configurations.
-    """
-
     guild_id = models.CharField(max_length=30)
     channel_id = models.CharField(max_length=30)
     target_id = models.CharField(max_length=30)
@@ -262,14 +211,12 @@ class ChannelPermissionSnapshot(TimestampMixin):
                 name="pk_channel_perm_snapshots",
             )
         ]
+        indexes = [
+            models.Index(fields=["guild_id"]),
+        ]
 
 
-# Gatekeeper & Verification Infrastructure
 class VerificationConfig(TimestampMixin):
-    """
-    Security verification nodes keeping automated onboarding paths isolated.
-    """
-
     guild_id = models.CharField(max_length=30, primary_key=True)
     verify_channel_id = models.CharField(max_length=30, null=True, blank=True)
     log_channel_id = models.CharField(max_length=30, null=True, blank=True)
