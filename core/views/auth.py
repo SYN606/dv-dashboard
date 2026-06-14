@@ -1,4 +1,5 @@
 import os
+import secrets
 import requests
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -8,18 +9,29 @@ API_BASE_URL = "https://discord.com/api/v10"
 
 
 def discord_login(request):
+    state_token = secrets.token_urlsafe(16)
+    request.session["oauth2_state"] = state_token
+
     params = {
         "client_id": os.getenv("DISCORD_CLIENT_ID"),
         "redirect_uri": os.getenv("DISCORD_REDIRECT_URI"),
         "response_type": "code",
         "scope": "identify guilds",
         "prompt": "none",
+        "state": state_token,
     }
     return redirect(f"{API_BASE_URL}/oauth2/authorize?{urlencode(params)}")
 
 
 def discord_callback(request):
     code = request.GET.get("code")
+    state = request.GET.get("state")
+    saved_state = request.session.pop("oauth2_state", None)
+
+    if not state or state != saved_state:
+        messages.error(request, "Security verification failed: State token mismatch.")
+        return redirect("core:homepage")
+
     if not code:
         messages.error(request, "Authorization denied or missing code.")
         return redirect("core:homepage")
@@ -55,18 +67,27 @@ def discord_callback(request):
             return redirect("core:homepage")
 
         user_data = user_response.json()
+        user_id_str = str(user_data["id"])
         owner_id = os.getenv("DISCORD_OWNER_ID")
-        if owner_id and str(user_data["id"]) != str(owner_id):
+        is_owner = owner_id and user_id_str == str(owner_id)
+        if owner_id and not is_owner:
             messages.error(request, "Access Denied: Not an authorized operator.")
             return redirect("core:homepage")
+        avatar_hash = user_data.get("avatar")
+        if avatar_hash:
+            avatar_url = (
+                f"https://cdn.discordapp.com/avatars/{user_id_str}/{avatar_hash}.png"
+            )
+        else:
+            avatar_url = f"https://cdn.discordapp.com/embed/avatars/{(int(user_id_str) >> 22) % 6}.png"
 
         request.session["access_token"] = access_token
         request.session["user"] = {
-            "id": user_data["id"],
+            "id": user_id_str,
             "username": user_data["username"],
             "global_name": user_data.get("global_name"),
-            "avatar": user_data.get("avatar"),
-            "is_staff": True if owner_id else False,
+            "avatar": avatar_url,
+            "is_staff": bool(is_owner),
         }
 
         messages.success(

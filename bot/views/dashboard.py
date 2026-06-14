@@ -10,7 +10,7 @@ ADMIN_PERMISSION_BIT = 0x8
 
 @discord_login_required
 def guild_dashboard(request, guild_id):
-    discord_user = request.session.get("discord_user")
+    discord_user = request.session.get("user")
     access_token = request.session.get("access_token")
     guild_id_str = str(guild_id)
     headers = {"Authorization": f"Bearer {access_token}"}
@@ -37,10 +37,9 @@ def guild_dashboard(request, guild_id):
         if not current_guild:
             messages.error(
                 request,
-                "Access denied. You do not possess administrator rights for this server."
+                "Access denied. You do not possess administrator rights for this server.",
             )
             return redirect("core:homepage")
-
     except requests.exceptions.RequestException:
         messages.error(
             request, "Authorization check failed due to an external network error."
@@ -76,4 +75,4 @@ def guild_dashboard(request, guild_id):
         },
         "config": guild_config,
     }
-    return render(request, "bot/dashboard_guild.html", context)
+    return render(request, "dashboard.html", context)
