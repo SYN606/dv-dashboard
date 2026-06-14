@@ -1,4 +1,4 @@
-from .homepage import (homepage, guild_dashboard_gate)
+from .homepage import (homepage)
 
 from .auth import (
     discord_login,

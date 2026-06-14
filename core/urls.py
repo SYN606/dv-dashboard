@@ -6,7 +6,6 @@ from .views import (
     discord_logout,
     terms_n_conditions,
     privay_policy,
-    guild_dashboard_gate,  
 )
 
 app_name = "core"
@@ -18,5 +17,4 @@ urlpatterns = [
     path("logout/", discord_logout, name="discord_logout"),
     path("terms/", terms_n_conditions, name="terms"),
     path("privacy/", privay_policy, name="privacy"),
-    path("dashboard/guild/<str:guild_id>/", guild_dashboard_gate, name="guild_dashboard"),
 ]

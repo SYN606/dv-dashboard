@@ -1,0 +1,83 @@
+{% if messages %}
+<div
+  id="notification-container"
+  class="fixed top-6 right-6 z-[99999] flex flex-col gap-3 w-full max-w-sm pointer-events-none"
+>
+  {% for message in messages %}
+  <div
+    class="notification-toast pointer-events-auto flex items-start gap-3 p-4 backdrop-blur-xl rounded-xl border shadow-2xl transition-all duration-500 translate-x-12 opacity-0 
+    {% if message.tags == 'success' %} bg-emerald-500/[0.04] border-emerald-500/20 text-emerald-400 
+    {% elif message.tags == 'error' or message.tags == 'danger' %} bg-rose-500/[0.04] border-rose-500/20 text-rose-400 
+    {% elif message.tags == 'warning' %} bg-amber-500/[0.04] border-amber-500/20 text-amber-400 
+    {% else %} bg-primary/[0.04] border-primary/20 text-primary{% endif %}"
+    role="alert"
+  >
+    <div class="shrink-0 text-sm mt-0.5">
+      {% if message.tags == 'success' %}
+      <i data-lucide="check-circle" class="w-4 h-4"></i>
+      {% elif message.tags == 'error' or message.tags == 'danger' %}
+      <i data-lucide="alert-octagon" class="w-4 h-4"></i>
+      {% elif message.tags == 'warning' %}
+      <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+      {% else %}
+      <i data-lucide="info" class="w-4 h-4"></i>
+      {% endif %}
+    </div>
+
+    <div class="flex-1 text-xs font-medium leading-relaxed text-slate-300 pr-2">
+      {{ message }}
+    </div>
+
+    <button
+      type="button"
+      onclick="dismissNotification(this.parentElement)"
+      class="shrink-0 text-slate-500 hover:text-slate-200 transition-colors p-0.5 hover:bg-white/5 rounded-md mt-0.5"
+    >
+      <i data-lucide="x" class="w-3.5 h-3.5"></i>
+    </button>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toasts = document.querySelectorAll(".notification-toast");
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    toasts.forEach((toast, index) => {
+      setTimeout(
+        () => {
+          toast.classList.remove("translate-x-12", "opacity-0");
+        },
+        index * 120 + 100,
+      );
+      setTimeout(
+        () => {
+          dismissNotification(toast);
+        },
+        5000 + index * 120,
+      );
+    });
+  });
+
+  function dismissNotification(toast) {
+    if (!toast) return;
+    toast.classList.add("translate-x-12", "opacity-0");
+    toast.addEventListener(
+      "transitionend",
+      () => {
+        toast.remove();
+
+        const container = document.getElementById("notification-container");
+        if (container && container.children.length === 0) {
+          container.remove();
+        }
+      },
+      { once: true },
+    );
+  }
+</script>
+{% endif %}

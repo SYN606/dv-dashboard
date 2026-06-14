@@ -1,2 +1,2 @@
-from .dashboard import dashboard
+from .dashboard import guild_dashboard
 

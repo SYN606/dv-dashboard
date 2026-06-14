@@ -4,19 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="DV Dashboard - Professional Discord Bot Management"
-    />
+    <meta name="description" content="DV Dashboard - Professional Discord Bot Management" />
 
-    <title>{% block title %} DV Dashboard {% endblock %}</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=JetBrains+Mono:wght@100..800&display=swap"
-      rel="stylesheet"
-    />
+    <title>{% block title %}DV Dashboard{% endblock %}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -25,8 +15,8 @@
           extend: {
             colors: { bg: "#0a0a0c", primary: "#22d3ee" },
             fontFamily: {
-              sans: ["Manrope", "sans-serif"],
-              mono: ["JetBrains Mono", "monospace"],
+              sans: ["Manrope", "system-ui", "sans-serif"],
+              mono: ["JetBrains Mono", "ui-monospace", "monospace"],
             },
           },
         },
@@ -36,63 +26,44 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 
     <style>
-      [x-cloak] {
-        display: none !important;
-      }
+      [x-cloak] { display: none !important; }
 
+      /* Hardware Accelerated Performance Smooth Cursor Ring */
       .cursor-follower {
         position: fixed;
+        top: 0;
+        left: 0;
         width: 300px;
         height: 300px;
-        background: radial-gradient(
-          circle,
-          rgba(34, 211, 238, 0.05) 0%,
-          transparent 70%
-        );
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.04) 0%, transparent 70%);
         pointer-events: none;
         z-index: 9999;
-        transform: translate(-50%, -50%);
+        will-change: transform;
         mix-blend-mode: screen;
-        transition: transform 0.15s ease-out;
       }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
-      .fade-in {
-        animation: fadeIn 0.6s ease-in-out forwards;
-      }
+      .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
     </style>
   </head>
 
-  <body
-    class="min-h-screen flex flex-col bg-[#0a0a0c] text-slate-200 antialiased"
-    x-data
-  >
-    <div class="fixed inset-0 z-0 pointer-events-none">
-      <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#0f172a_0%,#0a0a0c_70%)]"
-      ></div>
-      <div
-        class="absolute inset-0 opacity-[0.03]"
-        style="
-          background-image: radial-gradient(#22d3ee 1px, transparent 1px);
-          background-size: 30px 30px;
-        "
-      ></div>
+  <body class="min-h-screen flex flex-col bg-[#0a0a0c] text-slate-200 antialiased relative">
+    
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#0f172a_0%,#0a0a0c_70%)]"></div>
+      <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#22d3ee 1px, transparent 1px); background-size: 24px 24px;"></div>
     </div>
 
     <div class="cursor-follower" id="cursor"></div>
 
     {% include "navbar.html" %}
+    {% include "partials/_messages.html" %}
 
     <main class="flex-1 relative z-10 fade-in">
-      <div class="max-w-7xl mx-auto px-6 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {% block body %}{% endblock %}
       </div>
     </main>
@@ -100,24 +71,25 @@
     {% include "footer.html" %}
 
     <script>
-      // Performance-optimized mouse tracker
       const cursor = document.getElementById("cursor");
+      let currentX = 0, currentY = 0;
+
       document.addEventListener("mousemove", (e) => {
+        currentX = e.clientX - 150; 
+        currentY = e.clientY - 150;
         requestAnimationFrame(() => {
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
+          cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
         });
       });
     </script>
 
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-      lucide.createIcons();
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+      });
     </script>
   </body>
 </html>

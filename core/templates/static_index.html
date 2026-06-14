@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}System Infrastructure & Feature Manifest | DV Dashboard{% endblock %}
+
+{% block body %}
+<div class="space-y-16 max-w-6xl mx-auto px-4 py-8 text-slate-100 font-sans fade-in">
+  
+  <section class="backdrop-blur-xl bg-white/[0.02] border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden group">
+    <div class="absolute -right-32 -top-32 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all duration-1000"></div>
+    <div class="absolute -left-32 -bottom-32 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-all duration-1000"></div>
+    
+    <div class="space-y-4 relative z-10 max-w-4xl">
+      <div class="flex items-center gap-2 text-sm text-cyan-400 font-mono tracking-widest uppercase">
+        <i data-lucide="activity" class="w-5 h-5 animate-pulse"></i> Operational Cluster Specifications
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+        Engine Capabilities & <br class="hidden sm:inline" />Automated Systems Manifest
+      </h1>
+      <p class="text-base sm:text-lg text-slate-400 leading-relaxed max-w-3xl">
+        An exhaustive technical documentation of the bot's micro-runtime modules, internal evaluation matrices, localized enforcement loops, and state-isolated routing across the Discord API Gateway.
+      </p>
+    </div>
+  </section>
+
+  <div class="space-y-20">
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="heart" class="text-amber-400 w-6 h-6 animate-pulse"></i> Project Scope & Open Philosophy
+        </h2>
+      </div>
+      
+      <div class="p-6 sm:p-8 bg-gradient-to-br from-amber-500/[0.01] to-transparent border border-amber-500/10 rounded-2xl space-y-5">
+        <p class="text-base text-slate-300 leading-relaxed">
+          <strong>Digital Vigital (DV)</strong> is structurally engineered, compiled, and hosted as a <strong>pure, non-commercial hobby environment</strong>. The framework acts as an active testing environment for streaming socket systems, relational state caching modules, and real-time Discord API token handshake architectures.
+        </p>
+        <p class="text-sm sm:text-base text-slate-400 leading-relaxed">
+          The node completely bypasses data monetization networks, user tracking matrix systems, telemetry logging tables, or tier premium structures. Everything operates purely inside an isolated development sandbox to observe data interactions under load-balanced deployment topologies.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 font-mono text-xs">
+          <div class="flex items-center gap-2.5 text-slate-300 bg-slate-900/80 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span class="font-bold tracking-wide">100% Hobby Driven</span>
+          </div>
+          <div class="flex items-center gap-2.5 text-slate-300 bg-slate-900/80 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+            <i data-lucide="coins" class="w-4 h-4 text-rose-400 shrink-0"></i>
+            <span class="font-bold tracking-wide">Zero Commercial Fees</span>
+          </div>
+          <div class="flex items-center gap-2.5 text-slate-300 bg-slate-900/80 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+            <i data-lucide="code" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+            <span class="font-bold tracking-wide">Education Sandbox</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="cpu" class="text-cyan-400 w-6 h-6"></i> 1. Distributed Cluster Infrastructure
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        The internal cluster engine operates over an array configuration model, entirely separating incoming event listener pipes from physical storage input/output writes. By processing network tasks using Python asynchronous socket patterns (`asyncio`), communication intervals remain tied directly to regional network limits.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-cyan-500/20 transition-all duration-300 space-y-3 shadow-md">
+          <div class="text-sm text-cyan-400 font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Multi-Shard Scalability
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Distributes incoming packet buffers dynamically across individual, non-blocking shard clusters based on server geographic routing, completely neutralizing single points of catastrophic failure.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-emerald-500/20 transition-all duration-300 space-y-3 shadow-md">
+          <div class="text-sm text-emerald-400 font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Memory-Isolated Sessions
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Maintains independent runtime settings for every single guild via high-speed volatile data stores, ensuring system operations survive even when encountering external API gateway dropouts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="shield-check" class="text-cyan-400 w-6 h-6"></i> 2. Guild Governance & Control Matrices
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        High-tier processing blocks explicitly constructed to assert administrative properties, manage configuration parameters, and deploy secure data barriers instantly across individual channels.
+      </p>
+
+      <div class="grid grid-cols-1 gap-4">
+        <div class="flex flex-col sm:flex-row items-start gap-4 p-6 bg-slate-900/30 rounded-2xl border border-white/[0.03] hover:bg-slate-900/50 transition-colors">
+          <div class="px-3 py-1.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-xl font-mono text-sm tracking-wide shrink-0 font-bold">adminrole</div>
+          <div class="space-y-1 pt-0.5">
+            <h4 class="text-base font-bold text-slate-200">Developer & Staff Authentication Override</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">Sets custom control targets allowed to bypass normal system boundaries, isolating structural operations cleanly from native guild hierarchy layers.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start gap-4 p-6 bg-slate-900/30 rounded-2xl border border-white/[0.03] hover:bg-slate-900/50 transition-colors">
+          <div class="px-3 py-1.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-xl font-mono text-sm tracking-wide shrink-0 font-bold">mediaonly</div>
+          <div class="space-y-1 pt-0.5">
+            <h4 class="text-base font-bold text-slate-200">Automated Content-Type Enforcement Lock</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">Scans and reads user attachments in real-time. Automatically deletes pure text dialogue in media channels to safeguard dedicated storage galleries.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start gap-4 p-6 bg-slate-900/30 rounded-2xl border border-white/[0.03] hover:bg-slate-900/50 transition-colors">
+          <div class="px-3 py-1.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-xl font-mono text-sm tracking-wide shrink-0 font-bold">permaudit</div>
+          <div class="space-y-1 pt-0.5">
+            <h4 class="text-base font-bold text-slate-200">Structural Permissions Auditing Node</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">Evaluates complex user role configurations recursively, instantly flagging exposure paths, rogue administrator privileges, or tracking mismatches.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start gap-4 p-6 bg-slate-900/30 rounded-2xl border border-white/[0.03] hover:bg-slate-900/50 transition-colors">
+          <div class="px-3 py-1.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-xl font-mono text-sm tracking-wide shrink-0 font-bold">sticky</div>
+          <div class="space-y-1 pt-0.5">
+            <h4 class="text-base font-bold text-slate-200">Dynamic Interface Embed Anchoring</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">Locks reference rules messages permanently to the foot of high-volume feeds, flushing outdated frames to optimize visual clarity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="gavel" class="text-cyan-400 w-6 h-6"></i> 3. Punitive Moderation Guard Engine
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Built to process heavy volume security pipelines, this subsystem coordinates rapid isolation states, dispatches context-aware automated embeds to problem accounts, and compiles structured audit data histories.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white/[0.01] border border-white/5 hover:border-rose-500/20 p-6 rounded-2xl space-y-3 transition-all duration-300 shadow-md">
+          <div class="font-mono text-sm text-rose-400 uppercase font-bold tracking-wide flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i> Absolute Eviction (Ban / Kick)
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Instantly revokes workspace access tokens. Sends a localized modal explanation receipt directly to the destination profile before stripping user state traces out of message history arrays.
+          </p>
+        </div>
+
+        <div class="bg-white/[0.01] border border-white/5 hover:border-amber-500/20 p-6 rounded-2xl space-y-3 transition-all duration-300 shadow-md">
+          <div class="font-mono text-sm text-amber-400 uppercase font-bold tracking-wide flex items-center gap-2">
+            <i data-lucide="clock" class="w-4 h-4"></i> Temporal Restriction (Timeout / Tempban)
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Applies instant communication restrictions directly onto active target websockets, utilizing native Discord timeouts to neutralize toxic outbreaks without destroying user role histories.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="folder-lock" class="text-cyan-400 w-6 h-6"></i> 4. Channel Access & Security Lockdown Core
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Provides emergency permission overhauls to intercept aggressive automated spam scripts or isolate sudden information exposure events. Allows staff members to modify permission variables across massive room clusters simultaneously.
+      </p>
+
+      <div class="space-y-4">
+        <div class="p-5 rounded-2xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.02] flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
+          <div class="space-y-1">
+            <h5 class="text-base font-bold text-slate-200">Global Hidden/Mask Parameter (`hide`)</h5>
+            <p class="text-sm text-slate-400 leading-relaxed">Modifies root view visibility for the `@everyone` access level, turning targeted text grids completely invisible during back-end maintenance periods.</p>
+          </div>
+          <span class="text-xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-xl h-fit shrink-0 tracking-wide">Prefix Support Active</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.02] flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
+          <div class="space-y-1">
+            <h5 class="text-base font-bold text-slate-200">Emergency Threat Freeze Matrix (`lockdown`)</h5>
+            <p class="text-sm text-slate-400 leading-relaxed">Blocks payload input transmission for specific target roles, stopping ongoing text inputs without breaking custom permission paths.</p>
+          </div>
+          <span class="text-xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-xl h-fit shrink-0 tracking-wide">Prefix Support Active</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="volume-2" class="text-cyan-400 w-6 h-6"></i> 5. High-Intensity Voice Lounge Routing
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Optimizes user movement tracking inside active audio channels. Enables moderators to realign crowded voice channels or coordinate staff clusters inside single network updates.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+        <div class="bg-black/30 p-6 rounded-2xl border border-white/[0.03] space-y-2 hover:border-white/10 transition-colors">
+          <span class="text-slate-200 font-sans text-base font-bold block flex items-center gap-2">
+            <i data-lucide="user-plus" class="w-4 h-4 text-cyan-400"></i> Targeted Audio Extraction (`drag`)
+          </span>
+          <p class="text-slate-400 font-sans text-sm leading-relaxed">
+            Moves a specific user out of an external voice channel directly into your active connection instance, bypassing the need for manual navigation menus.
+          </p>
+        </div>
+        <div class="bg-black/30 p-6 rounded-2xl border border-white/[0.03] space-y-2 hover:border-white/10 transition-colors">
+          <span class="text-slate-200 font-sans text-base font-bold block flex items-center gap-2">
+            <i data-lucide="git-merge" class="w-4 h-4 text-cyan-400"></i> Mass Migration Pipeline (`moveall`)
+          </span>
+          <p class="text-slate-400 font-sans text-sm leading-relaxed">
+            Migrates every active voice participant from your current channel segment into an alternative target system room array in a single execution loop.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border-b border-white/5 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+          <i data-lucide="sparkles" class="text-cyan-400 w-6 h-6"></i> 6. General Utility Services & Metadata Readers
+        </h2>
+      </div>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Provides server members with instant diagnostic responses, round-trip tracking stats, image payload collectors, and internal server health logs.
+      </p>
+
+      <div class="border border-white/10 bg-slate-950/40 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-white/[0.03] border-b border-white/10 text-slate-400 font-mono tracking-wider text-[11px] uppercase">
+              <tr>
+                <th class="p-4 sm:p-5">Module Token</th>
+                <th class="p-4 sm:p-5">Operational Scope Description</th>
+                <th class="p-4 sm:p-5 text-right">Access Permission Tier</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-sans text-slate-300">
+              <tr class="hover:bg-white/[0.02] transition-colors group">
+                <td class="p-4 sm:p-5 font-mono font-bold text-cyan-400 text-sm">afk / reset</td>
+                <td class="p-4 sm:p-5 text-slate-400 text-sm">Caches member status strings to auto-reply to profile mentions; handles system administrative resets.</td>
+                <td class="p-4 sm:p-5 text-right text-slate-500 font-mono text-xs">Unrestricted / Admin</td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors group">
+                <td class="p-4 sm:p-5 font-mono font-bold text-cyan-400 text-sm">avatar / banner</td>
+                <td class="p-4 sm:p-5 text-slate-400 text-sm">Extracts direct high-resolution image asset strings and graphic URLs from targeted profile entities.</td>
+                <td class="p-4 sm:p-5 text-right text-slate-500 font-mono text-xs">Unrestricted</td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors group">
+                <td class="p-4 sm:p-5 font-mono font-bold text-cyan-400 text-sm">ping / shards</td>
+                <td class="p-4 sm:p-5 text-slate-400 text-sm">Audits individual cluster shard indexes and returns current round-trip connection heartbeats.</td>
+                <td class="p-4 sm:p-5 text-right text-slate-500 font-mono text-xs">Unrestricted</td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors group">
+                <td class="p-4 sm:p-5 font-mono font-bold text-cyan-400 text-sm">steal</td>
+                <td class="p-4 sm:p-5 text-slate-400 text-sm">Copies raw external emoji imagery payloads instantly into local server asset storage files.</td>
+                <td class="p-4 sm:p-5 text-right text-cyan-400/80 font-mono text-xs font-bold">Manage Expressions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+{% endblock %}
